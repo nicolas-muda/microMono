@@ -28,12 +28,13 @@ public interface MonopatinRepositorio extends JpaRepository<Monopatin, Integer> 
 
 	@Transactional
 	@Modifying
-	@Query("UPDATE Monopatin m SET m.usoKm = m.usoKm + :km WHERE m.id = :idMono")
-	void aumentarKm(int idMono, int km);
-
-	@Transactional
-	@Modifying
 	@Query("UPDATE Monopatin m SET m.ultimoMantenimiento = :fechaActual WHERE m.id = :idMono")
 	void registrarMantenimiento(int idMono, LocalDate fechaActual);
+
+	@Query("SELECT COUNT(m) FROM Monopatin m WHERE m.estado <> 'mantenimiento'")
+	int cantDisponibles();
+
+	@Query("SELECT COUNT(m) FROM Monopatin m WHERE m.estado = 'mantenimiento'")
+	int cantMantenimiento();
 
 }

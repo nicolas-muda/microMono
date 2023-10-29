@@ -32,10 +32,6 @@ public class Monopatin {
 	@Column
 	private float longitud;
 
-	// distancia recorrida
-	@Column
-	private float usoKm;
-
 	@Column
 	private LocalDate ultimoMantenimiento;
 
@@ -48,7 +44,6 @@ public class Monopatin {
 		this.estado = estadoInicial;
 		this.latitud = y;
 		this.longitud = x;
-		this.usoKm = 0;
 	}
 
 	public String getEstado() {
@@ -83,22 +78,14 @@ public class Monopatin {
 		this.idParada = idParada;
 	}
 
-	public float getUsoKm() {
-		return usoKm;
-	}
-
-	public void setUsoKm(float usoKm) {
-		this.usoKm = usoKm;
-	}
-
 	public int getId() {
 		return id;
 	}
 
 	@Override
 	public String toString() {
-		return "Monopatin [id=" + id + ", estado=" + estado + ", latitud=" + latitud + ", longitud=" + longitud
-				+ ", idParada=" + idParada + ", usoKm=" + usoKm + "]";
+		return "Monopatin [id=" + id + ", idParada=" + idParada + ", estado=" + estado + ", latitud=" + latitud
+				+ ", longitud=" + longitud + ", ultimoMantenimiento=" + ultimoMantenimiento + "]";
 	}
 
 }

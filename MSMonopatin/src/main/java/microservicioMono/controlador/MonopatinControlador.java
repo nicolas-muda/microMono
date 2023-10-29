@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -51,10 +52,15 @@ public class MonopatinControlador {
 		MonopatinRepositorio.cambiarPosicion(idMono, latitud, longitud);
 	}
 
-	// aumenta los kilomentros del monopatin
-	@PutMapping("/km/{idMono}/{km}")
-	public void aumentarKm(@PathVariable int idMono, @PathVariable int km) {
-		MonopatinRepositorio.aumentarKm(idMono, km);
+	// punto a reporte de monopatines segun uso (km recorridos y tiempo)
+	// punto c traer una lista ordenada de todos los monopatines segun su uso
+
+	// punto e1 consultar los monopatines que se encuentran disponibles
+	@GetMapping("/cantDisponibles")
+	public String cantMonoDisponibles() {
+		int disponibles = MonopatinRepositorio.cantDisponibles();
+		int mantenimiento = MonopatinRepositorio.cantMantenimiento();
+		return "cant monopatines disponibles: " + disponibles + " cant monopatines mantenimiento: " + mantenimiento;
 	}
 
 	// indica cual fue el ultimo mantenimiento del monopatin
