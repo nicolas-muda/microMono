@@ -1,6 +1,7 @@
 package microservicioMono.controlador;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import microservicioMono.modelo.Monopatin;
 import microservicioMono.repositorio.MonopatinRepositorio;
+import microservicioMono.servicio.MonopatinServicio;
 
 @RestController
 @RequestMapping("/MSMonopatin")
@@ -21,6 +23,8 @@ public class MonopatinControlador {
 
 	@Autowired
 	private MonopatinRepositorio MonopatinRepositorio;
+	@Autowired
+	private MonopatinServicio monopatinServicio;
 
 	// crear monopatin
 	@PostMapping
@@ -68,5 +72,12 @@ public class MonopatinControlador {
 	public void registrarMantenimiento(@PathVariable int idMono) {
 		LocalDate fechaActual = LocalDate.now();
 		MonopatinRepositorio.registrarMantenimiento(idMono, fechaActual);
+	}
+
+	// buscar monopatines cercanos
+	@GetMapping("/buscarMonopatines/{latitud}/{longitud}/{margen}")
+	public List<Monopatin> buscarMonopatines(@PathVariable float latitud, @PathVariable float longitud,
+			@PathVariable float margen) {
+		return monopatinServicio.traerMonopatinCercanos(latitud, longitud, margen);
 	}
 }
