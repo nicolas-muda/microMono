@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import microservicioMono.controlador.MonopatinControlador;
 import microservicioMono.modelo.Monopatin;
 import microservicioMono.repositorio.MonopatinRepositorio;
 
@@ -27,7 +26,8 @@ public class MonopatinServicio {
 			if (diferenciaLon < 0) {
 				diferenciaLon *= -1;
 			}
-			if ((diferenciaLat <= margen) && (diferenciaLon <= margen)) {
+			if ((diferenciaLat <= margen) && (diferenciaLon <= margen)
+					&& (monopatines.get(i).getEstado() == "disponible")) {
 				resultado.add(monopatines.get(i));
 			}
 		}
