@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import microservicioMono.dto.ReporteCantMonos;
 import microservicioMono.modelo.Monopatin;
 import microservicioMono.repositorio.MonopatinRepositorio;
 import microservicioMono.servicio.MonopatinServicio;
@@ -56,15 +57,11 @@ public class MonopatinControlador {
 		MonopatinRepositorio.cambiarPosicion(idMono, latitud, longitud);
 	}
 
-	// punto a reporte de monopatines segun uso (km recorridos y tiempo)
-	// punto c traer una lista ordenada de todos los monopatines segun su uso
-
 	// punto e1 consultar los monopatines que se encuentran disponibles
 	@GetMapping("/cantDisponibles")
-	public String cantMonoDisponibles() {
-		int disponibles = MonopatinRepositorio.cantDisponibles();
-		int mantenimiento = MonopatinRepositorio.cantMantenimiento();
-		return "cant monopatines disponibles: " + disponibles + " cant monopatines mantenimiento: " + mantenimiento;
+	public ReporteCantMonos cantMonoDisponibles() {
+		ReporteCantMonos reporte=monopatinServicio.reporteMonopatinesDisponibles();
+		return reporte;
 	}
 
 	// indica cual fue el ultimo mantenimiento del monopatin

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import microservicioMono.dto.ReporteCantMonos;
 import microservicioMono.modelo.Monopatin;
 import microservicioMono.repositorio.MonopatinRepositorio;
 
@@ -32,6 +33,13 @@ public class MonopatinServicio {
 			}
 		}
 		return resultado;
+	}
+
+	public ReporteCantMonos reporteMonopatinesDisponibles() {
+		int disponibles = monopatinRepositorio.cantDisponibles();
+		int mantenimiento = monopatinRepositorio.cantMantenimiento();
+		ReporteCantMonos reporte = new ReporteCantMonos(disponibles, mantenimiento);
+		return reporte;
 	}
 
 }
