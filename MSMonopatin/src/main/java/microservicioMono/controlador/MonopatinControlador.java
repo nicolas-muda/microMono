@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import microservicioMono.dto.ReporteCantMonos;
 import microservicioMono.modelo.Monopatin;
 import microservicioMono.repositorio.MonopatinRepositorio;
@@ -20,6 +21,7 @@ import microservicioMono.servicio.MonopatinServicio;
 
 @RestController
 @RequestMapping("/MSMonopatin")
+@Tag(name = "Servicio Monopatin", description = "se encarga de todo lo referente a los monopatines")
 public class MonopatinControlador {
 
 	@Autowired
