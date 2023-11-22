@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import microservicioMono.dto.MonopatinDto;
 import microservicioMono.dto.ReporteCantMonos;
 import microservicioMono.modelo.Monopatin;
 import microservicioMono.repositorio.MonopatinRepositorio;
@@ -40,6 +41,15 @@ public class MonopatinServicio {
 		int mantenimiento = monopatinRepositorio.cantMantenimiento();
 		ReporteCantMonos reporte = new ReporteCantMonos(disponibles, mantenimiento);
 		return reporte;
+	}
+
+	public void crearMonopatin(MonopatinDto e) {
+		String estado = e.getEstado();
+		float latitud = e.getLatitud();
+		float longitud = e.getLongitud();
+		Monopatin m = new Monopatin(estado, latitud, longitud);
+		monopatinRepositorio.save(m);
+
 	}
 
 }
