@@ -22,15 +22,16 @@ public class MonopatinServicio {
 		for (int i = 0; i < monopatines.size(); i++) {
 			float diferenciaLat = monopatines.get(i).getLatitud() - latitud;
 			float diferenciaLon = monopatines.get(i).getLongitud() - longitud;
-			if (diferenciaLat < 0) {
-				diferenciaLat *= -1;
-			}
-			if (diferenciaLon < 0) {
-				diferenciaLon *= -1;
-			}
-			if ((diferenciaLat <= margen) && (diferenciaLon <= margen)
-					&& (monopatines.get(i).getEstado() == "disponible")) {
-				resultado.add(monopatines.get(i));
+			if (monopatines.get(i).getEstado() == "disponible"){
+				if (diferenciaLat < 0) {
+					diferenciaLat *= -1;
+				}
+				if (diferenciaLon < 0) {
+					diferenciaLon *= -1;
+				}
+				if (diferenciaLat <= margen) && (diferenciaLon <= margen) {
+					resultado.add(monopatines.get(i));
+				}
 			}
 		}
 		return resultado;
