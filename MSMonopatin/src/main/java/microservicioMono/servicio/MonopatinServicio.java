@@ -16,23 +16,15 @@ public class MonopatinServicio {
 	@Autowired
 	private MonopatinRepositorio monopatinRepositorio;
 
-	public List<Monopatin> traerMonopatinCercanos(float latitud, float longitud, float margen) {
-		List<Monopatin> monopatines = monopatinRepositorio.findAll();
-		List<Monopatin> resultado = new ArrayList<Monopatin>();
-		for (int i = 0; i < monopatines.size(); i++) {
-			float diferenciaLat = monopatines.get(i).getLatitud() - latitud;
-			float diferenciaLon = monopatines.get(i).getLongitud() - longitud;
-			if (monopatines.get(i).getEstado() == "disponible"){
-				if (diferenciaLat < 0) {
-					diferenciaLat *= -1;
-				}
-				if (diferenciaLon < 0) {
-					diferenciaLon *= -1;
-				}
-				if (diferenciaLat <= margen) && (diferenciaLon <= margen) {
-					resultado.add(monopatines.get(i));
-				}
-			}
+	public List<MonopatinDto> traerMonopatinCercanos(float latitud, float longitud, float margen) {
+		List<Monopatin> monopatinesCercanos = monopatinRepositorio.reporteMonopatinCercano(latitud, longitud, margen);
+		List<MonopatinDto> resultado = new ArrayList<MonopatinDto>();
+		for (int i = 0; i < monopatinesCercanos.size(); i++) {
+			String estado = monopatinesCercanos.get(i).getEstado();
+			float mLatitud = monopatinesCercanos.get(i).getLatitud();
+			float mLongitud = monopatinesCercanos.get(i).getLongitud();
+			MonopatinDto nuevoDto = new MonopatinDto(estado, mLatitud, mLongitud);
+			resultado.add(nuevoDto);
 		}
 		return resultado;
 	}

@@ -1,6 +1,7 @@
 package microservicioMono.repositorio;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -30,6 +31,9 @@ public interface MonopatinRepositorio extends JpaRepository<Monopatin, Integer> 
 	@Modifying
 	@Query("UPDATE Monopatin m SET m.ultimoMantenimiento = :fechaActual WHERE m.id = :idMono")
 	void registrarMantenimiento(int idMono, LocalDate fechaActual);
+	
+	@Query("SELECT m FROM Monopatin m WHERE m.estado = 'disponible' AND ABS(m.latitud - :latitud) <= :margen AND ABS(m.longitud - :longitud) <= :margen")
+	List<Monopatin> reporteMonopatinCercano(float latitud, float longitud,float margen);
 
 	@Query("SELECT COUNT(m) FROM Monopatin m WHERE m.estado <> 'mantenimiento'")
 	int cantDisponibles();

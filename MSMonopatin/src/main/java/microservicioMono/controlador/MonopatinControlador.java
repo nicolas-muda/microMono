@@ -63,7 +63,7 @@ public class MonopatinControlador {
 	// punto e1 consultar los monopatines que se encuentran disponibles
 	@GetMapping("/cantDisponibles")
 	public ReporteCantMonos cantMonoDisponibles() {
-		ReporteCantMonos reporte=monopatinServicio.reporteMonopatinesDisponibles();
+		ReporteCantMonos reporte = monopatinServicio.reporteMonopatinesDisponibles();
 		return reporte;
 	}
 
@@ -76,7 +76,7 @@ public class MonopatinControlador {
 
 	// buscar monopatines cercanos
 	@GetMapping("/buscarMonopatines/{latitud}/{longitud}/{margen}")
-	public List<Monopatin> buscarMonopatines(@PathVariable float latitud, @PathVariable float longitud,
+	public List<MonopatinDto> buscarMonopatines(@PathVariable float latitud, @PathVariable float longitud,
 			@PathVariable float margen) {
 		return monopatinServicio.traerMonopatinCercanos(latitud, longitud, margen);
 	}
